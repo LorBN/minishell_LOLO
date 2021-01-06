@@ -1,0 +1,3 @@
+// liste des malloc qui sont créé et pas free
+
+g_envp et g_envp[i];
