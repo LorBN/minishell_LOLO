@@ -21,7 +21,7 @@ char	*ms_command(t_cmd *cmd)
 		}
 		cmd->i++;
 	}
-	if ((S_Q & cmd->quoteflag) && (D_Q & cmd->quoteflag))   // if quotes are opened at the end of the command
+	if ((S_Q & cmd->quoteflag) || (D_Q & cmd->quoteflag))   // if quotes are opened at the end of the command
 		printf("ERROR : quote opened !!");
 	if (splitflag == 0)   // no ; separating commands (no split done) = end of line
 	{
@@ -31,7 +31,7 @@ char	*ms_command(t_cmd *cmd)
 	printf("CMD LINE = %s\n", cmd->line);
 
 	// PUT ALL THE FUNCTIONS TO ANALYSE EACH COMMAND HERE !!!!!!!
-	//ms_parsing(cmd);
+	ms_parsing_quotes(cmd);
 
 	//return (cmd->quoteflag);     //keep it if we want to print char bitwise value
 	return (cmd->rest);
@@ -40,21 +40,34 @@ char	*ms_command(t_cmd *cmd)
 
 
 
-int     ms_parsing(t_cmd *cmd)
+int     ms_parsing_quotes(t_cmd *cmd)
 {
     cmd->i = 0;
     cmd->quoteflag = 0;
     while (cmd->line[cmd->i] != '\0')
     {
-    //      char a = cmd->quoteflag;
-    // int i;
-    //     for (i = 0; i < 8; i++) {
-    //      printf("%d", !!((a << i) & 0x80));
-    //     }
-    //     printf("\n");
-
         ms_quoteflag(cmd);
-        ms_check_quotes(cmd);
+        // char a = cmd->quoteflag;
+    	// int i;
+        // for (i = 0; i < 8; i++) {
+        //  printf("%d", !!((a << i) & 0x80));
+        // }
+        // printf("\n");
+
+
+		// if (S_Q & cmd->quoteflag)
+		// 	cmd->i++;
+		// else if (D_Q & cmd->quoteflag)
+		// {
+		// 	ms_dollar(cmd);
+		// 	ms_backslash(cmd);
+		// }
+		// else if (!(S_Q & cmd->quoteflag) && !(D_Q & cmd->quoteflag))
+		// {
+		// 	printf("outside quotes\n");
+		// }
+
+		
         cmd->i++;
     }
     

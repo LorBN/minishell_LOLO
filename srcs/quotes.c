@@ -1,16 +1,35 @@
 #include "minishell.h"
 
-void		ms_check_quotes(t_cmd *cmd)
+int		ms_quoteflag(t_cmd *cmd)
 {
-    if (cmd->line[cmd->i] == '\'')
-    {
-        if (D_Q & cmd->quoteflag)
-		    cmd->quoteflag &= 0b111111110;
-    }
-    if (cmd->line[cmd->i] == '"')
-    {
-        if (S_Q & cmd->quoteflag)
-            cmd->quoteflag &= 0b11111101;
-    }
-    return ;
+	if (cmd->line[cmd->i] == '\'')
+	{
+		//printf("' founded\n");
+		if (!(S_Q & cmd->quoteflag) && !(D_Q & cmd->quoteflag))
+		{
+			    cmd->quoteflag |= S_Q;
+		//	    printf("simple quote flag 1\n");
+		}
+		else
+		{
+			cmd->quoteflag &= 0b111111110;
+		//	printf("simple quote flag 0\n");
+		}
+	}
+	else if (cmd->line[cmd->i] == '"')
+	{
+		//printf("\" founded\n");
+		if (!(D_Q & cmd->quoteflag) && !(S_Q & cmd->quoteflag))
+		{
+			cmd->quoteflag |= D_Q;
+		//	printf("double quote flag 1\n");
+		}
+		else
+		{
+			cmd->quoteflag &= 0b11111101;
+		//	printf("double quote flag 0\n");
+		}
+	}
+	//ms_check_quotes(cmd);
+	return (1);
 }

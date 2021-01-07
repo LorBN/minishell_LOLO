@@ -100,7 +100,7 @@ void	ms_check_quotes(t_cmd *cmd);
 */
 
 char	*ms_command(t_cmd *cmd);
-int     ms_parsing(t_cmd *cmd);
+int     ms_parsing_quotes(t_cmd *cmd);
 
 /*
 ** ---------------------------------- utils.c ----------------------------------
